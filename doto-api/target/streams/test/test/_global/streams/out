@@ -1,0 +1,186 @@
+[debug] javaOptions: Vector(-Dconfig.file=conf/test.conf)
+[debug] Forking tests - parallelism = false
+[debug] Create a single-thread test executor
+[debug] Runner for org.scalatest.tools.Framework produced 9 initial tasks for 9 tests.
+[debug]   Running TaskDef(controllers.RewardControllerSpec, sbt.ForkMain$SubclassFingerscan@29ca901e, false, [SuiteSelector])
+[info] RewardControllerSpec:
+[info] POST /api/rewards
+[info] - should return 201 creating a reward for a child member
+[info] - should return 400 when pointsCost is zero
+[info] - should return 400 when pointsCost is negative
+[info] - should return 400 when title is empty
+[info] - should return 401 with no token
+[info] GET /api/rewards
+[info] - should return 200 with list of family rewards
+[info] - should return 200 filtered by memberId
+[info] - should return 200 filtered by status=active
+[info] PATCH /api/rewards/:id/request
+[info] - should return 409 when the child has insufficient points for the reward cost
+[info] - should return 200 requesting a reward when the child has enough points
+[info] - should return 400 if the reward is not in active status
+[info] PATCH /api/rewards/:id/approve
+[info] - should return 200 approving a pending_approval reward as a parent
+[info] - should return 400 if the reward is not in pending_approval status
+[info] PATCH /api/rewards/:id/redeem
+[info] - should return 200 redeeming an approved reward as a parent
+[info] - should return 400 if the reward is not in approved status
+[info] DELETE /api/rewards/:id
+[info] - should return 204 deleting an active reward as a parent
+[info] - should return 404 for a non-existent reward id
+[debug]     Produced 0 nested tasks and 17 events.
+[debug]   Running TaskDef(controllers.DashboardControllerSpec, sbt.ForkMain$SubclassFingerscan@5649fd9b, false, [SuiteSelector])
+[info] DashboardControllerSpec:
+[info] GET /api/dashboard
+[info] - should return 200 with the full dashboard payload
+[info] - should return 200 with an empty pendingTasks list after all tasks are completed
+[info] - should return 401 when no token is provided
+[info] - should return 404 when the user has no family
+[debug]     Produced 0 nested tasks and 4 events.
+[debug]   Running TaskDef(controllers.FamilyControllerSpec, sbt.ForkMain$SubclassFingerscan@6adede5, false, [SuiteSelector])
+[info] FamilyControllerSpec:
+[info] POST /api/families
+[info] - should return 201 with family and members list on creation
+[info] - should return 409 when user already belongs to a family
+[info] - should return 400 when name is blank
+[info] - should return 401 with no token
+[info] POST /api/families/join
+[info] - should return 200 and join the family using a valid invite code
+[info] - should return 409 when user already belongs to a family
+[info] - should return 404 for an invalid invite code
+[info] GET /api/families/mine
+[info] - should return 200 with family details including members
+[info] - should return 404 when user has no family
+[info] GET /api/families/mine/invite-code
+[info] - should return 200 with the invite code
+[info] - should return 401 with no token
+[debug]     Produced 0 nested tasks and 11 events.
+[debug]   Running TaskDef(controllers.EventControllerSpec, sbt.ForkMain$SubclassFingerscan@2d928643, false, [SuiteSelector])
+[info] EventControllerSpec:
+[info] POST /api/events
+[info] - should return 201 creating an event with valid data
+[info] - should return 400 when endAt is before startAt
+[info] - should return 400 when title is empty
+[info] - should return 401 with no token
+[info] GET /api/events
+[info] - should return 200 with list of family events
+[info] - should return 200 filtering by from/to date range
+[info] - should return 200 with empty list when no events match filter
+[info] GET /api/events/:id
+[info] - should return 200 with the event details
+[info] - should return 404 for a non-existent event id
+[info] PUT /api/events/:id
+[info] - should return 200 updating an event's title and location
+[info] - should return 404 for a non-existent event id
+[info] DELETE /api/events/:id
+[info] - should return 204 on successful deletion
+[info] - should return 404 for an already-deleted event
+[debug]     Produced 0 nested tasks and 13 events.
+[debug]   Running TaskDef(controllers.AuthControllerSpec, sbt.ForkMain$SubclassFingerscan@5025a98f, false, [SuiteSelector])
+[info] AuthControllerSpec:
+[info] POST /api/auth/register
+[info] - should return 201 with token and profile on valid registration
+[info] - should return 409 when username is already taken
+[info] - should return 400 when username is too short
+[info] - should return 400 when username contains invalid characters
+[info] - should return 400 when password is too short
+[info] - should return 400 when displayName is empty
+[info] - should return 400 for malformed JSON
+[info] POST /api/auth/login
+[info] - should return 200 with token on valid credentials
+[info] - should return 401 for wrong password
+[info] - should return 401 for non-existent username
+[info] GET /api/auth/me
+[info] - should return 200 with the caller's profile when authenticated
+[info] - should return 401 when no token is provided
+[info] - should return 401 for an invalid token
+[debug]     Produced 0 nested tasks and 13 events.
+[debug]   Running TaskDef(controllers.TaskControllerSpec, sbt.ForkMain$SubclassFingerscan@49993335, false, [SuiteSelector])
+[info] TaskControllerSpec:
+[info] POST /api/tasks
+[info] - should return 201 creating a task with default priority and points
+[info] - should return 201 creating a high-priority task with due date
+[info] - should return 400 when title is empty
+[info] - should return 400 when points is negative
+[info] - should return 401 with no token
+[info] GET /api/tasks
+[info] - should return 200 with list of family tasks
+[info] - should return 200 filtered by status=todo
+[info] - should return 200 filtered by assignedTo
+[info] - should return 200 filtered by priority=high
+[info] GET /api/tasks/:id
+[info] - should return 200 with the task details
+[info] - should return 404 for a non-existent task id
+[info] PUT /api/tasks/:id
+[info] - should return 200 updating a task's title and status
+[info] - should return 404 for a non-existent task
+[info] PATCH /api/tasks/:id/complete
+[info] - should return 200 marking the task as done and awarding points to the assignee
+[info] DELETE /api/tasks/:id
+[info] - should return 204 on successful deletion
+[info] - should return 404 for an already-deleted task
+[debug]     Produced 0 nested tasks and 16 events.
+[debug]   Running TaskDef(controllers.ShoppingControllerSpec, sbt.ForkMain$SubclassFingerscan@20322d26, false, [SuiteSelector])
+[info] ShoppingControllerSpec:
+[info] GET /api/shopping/lists
+[info] - should return 200 with an empty list initially
+[info] - should return 401 with no token
+[info] POST /api/shopping/lists
+[info] - should return 201 creating a shopping list
+[info] - should return 400 when name is blank
+[info] GET /api/shopping/lists/:id/items
+[info] - should return 200 with empty items for a new list
+[info] - should return 404 for a non-existent list
+[info] POST /api/shopping/lists/:id/items
+[info] - should return 201 adding an item to the list
+[info] - should return 201 adding an item with default category
+[info] - should return 400 when item name is empty
+[info] - should return 404 for adding item to non-existent list
+[info] PATCH /api/shopping/lists/:listId/items/:itemId/check
+[info] - should return 200 checking an item
+[info] - should return 200 unchecking an item
+[info] - should return 404 for a non-existent item
+[info] DELETE /api/shopping/lists/:id/items/checked
+[info] - should return 200 clearing all checked items from the list
+[info] DELETE /api/shopping/lists/:listId/items/:itemId
+[info] - should return 204 deleting a specific item
+[info] DELETE /api/shopping/lists/:id
+[info] - should return 204 deleting the whole list
+[info] - should return 404 for an already-deleted list
+[debug]     Produced 0 nested tasks and 17 events.
+[debug]   Running TaskDef(controllers.MemberControllerSpec, sbt.ForkMain$SubclassFingerscan@192b07fd, false, [SuiteSelector])
+[info] MemberControllerSpec:
+[info] GET /api/members
+[info] - should return 200 with the list of family members
+[info] - should return 401 with no token
+[info] POST /api/members
+[info] - should return 201 creating a child member as a parent
+[info] - should return 400 for an invalid hex colour
+[info] - should return 400 for an empty displayName
+[info] PUT /api/members/:id
+[info] - should return 200 updating a member's displayName and colour
+[info] - should return 404 for a non-existent member id
+[info] DELETE /api/members/:id
+[info] - should return 403 when trying to delete an auth account
+[info] - should return 204 deleting a non-auth child member
+[info] - should return 404 for an already-deleted member
+[debug]     Produced 0 nested tasks and 10 events.
+[debug]   Running TaskDef(controllers.HealthControllerSpec, sbt.ForkMain$SubclassFingerscan@64bfbc86, false, [SuiteSelector])
+[info] HealthControllerSpec:
+[info] GET /api/health
+[info] - should return 200 with status ok
+[debug]     Produced 0 nested tasks and 1 events.
+[info] Run completed in 9 seconds, 275 milliseconds.
+[info] Total number of tests run: 102
+[info] Suites: completed 9, aborted 0
+[info] Tests: succeeded 102, failed 0, canceled 0, ignored 0, pending 0
+[info] All tests passed.
+[debug] Passed tests:
+[debug] 	controllers.RewardControllerSpec
+[debug] 	controllers.DashboardControllerSpec
+[debug] 	controllers.FamilyControllerSpec
+[debug] 	controllers.EventControllerSpec
+[debug] 	controllers.AuthControllerSpec
+[debug] 	controllers.TaskControllerSpec
+[debug] 	controllers.ShoppingControllerSpec
+[debug] 	controllers.MemberControllerSpec
+[debug] 	controllers.HealthControllerSpec

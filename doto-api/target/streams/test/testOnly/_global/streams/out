@@ -1,0 +1,21 @@
+[0m[[0m[0mdebug[0m] [0m[0mjavaOptions: Vector(-Dconfig.file=conf/test.conf)[0m
+[0m[[0m[0mdebug[0m] [0m[0mForking tests - parallelism = false[0m
+[0m[[0m[0mdebug[0m] [0m[0mCreate a single-thread test executor[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunner for org.scalatest.tools.Framework produced 1 initial tasks for 1 tests.[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(controllers.DashboardControllerSpec, sbt.ForkMain$SubclassFingerscan@29ca901e, false, [SuiteSelector])[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mDashboardControllerSpec:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mGET /api/dashboard[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should return 200 with the full dashboard payload[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should return 200 with an empty pendingTasks list after all tasks are completed[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should return 401 when no token is provided[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m- should return 404 when the user has no family *** FAILED ***[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  401 was not equal to 404 (DashboardControllerSpec.scala:54)[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 4 events.[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mRun completed in 2 seconds, 308 milliseconds.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mTotal number of tests run: 4[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mSuites: completed 1, aborted 0[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mTests: succeeded 3, failed 1, canceled 0, ignored 0, pending 0[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m*** 1 TEST FAILED ***[0m[0m
+[0m[[0m[31merror[0m] [0m[0mFailed tests:[0m
+[0m[[0m[31merror[0m] [0m[0m	controllers.DashboardControllerSpec[0m
+[0m[[0m[31merror[0m] [0m[0m(Test / [31mtestOnly[0m) sbt.TestsFailedException: Tests unsuccessful[0m

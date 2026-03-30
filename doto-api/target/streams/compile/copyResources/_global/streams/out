@@ -1,0 +1,10 @@
+[0m[[0m[0mdebug[0m] [0m[0mCopy resource mappings: [0m
+[0m[[0m[0mdebug[0m] [0m[0m	(/Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/conf/dev.conf,/Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/target/scala-3.3.3/classes/dev.conf)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	(/Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/conf/test.conf,/Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/target/scala-3.3.3/classes/test.conf)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	(/Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/conf/application.conf,/Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/target/scala-3.3.3/classes/application.conf)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	(/Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/conf/routes,/Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/target/scala-3.3.3/classes/routes)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	(/Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/conf/evolutions/default/4.sql,/Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/target/scala-3.3.3/classes/evolutions/default/4.sql)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	(/Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/conf/evolutions/default/5.sql,/Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/target/scala-3.3.3/classes/evolutions/default/5.sql)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	(/Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/conf/evolutions/default/2.sql,/Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/target/scala-3.3.3/classes/evolutions/default/2.sql)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	(/Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/conf/evolutions/default/3.sql,/Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/target/scala-3.3.3/classes/evolutions/default/3.sql)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	(/Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/conf/evolutions/default/1.sql,/Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/target/scala-3.3.3/classes/evolutions/default/1.sql)[0m

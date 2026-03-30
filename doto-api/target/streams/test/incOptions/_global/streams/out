@@ -1,0 +1,11 @@
+[debug] Created transactional ClassFileManager with tempDir = /Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/target/scala-3.3.3/test-classes.bak
+[debug] About to delete class files:
+[debug] 	DashboardControllerSpec.class
+[debug] 	DashboardControllerSpec.tasty
+[debug] We backup class files:
+[debug] 	DashboardControllerSpec.class
+[debug] 	DashboardControllerSpec.tasty
+[debug] Registering generated classes:
+[debug] 	DashboardControllerSpec.class
+[debug] 	DashboardControllerSpec.tasty
+[debug] Removing the temporary directory used for backing up class files: /Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/target/scala-3.3.3/test-classes.bak

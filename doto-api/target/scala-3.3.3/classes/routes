@@ -1,0 +1,57 @@
+# Health
+GET     /api/health                                     controllers.HealthController.check
+
+# Auth (no JWT required)
+POST    /api/auth/register                              controllers.AuthController.register
+POST    /api/auth/login                                 controllers.AuthController.login
+GET     /api/auth/me                                    controllers.AuthController.me
+PATCH   /api/auth/profile                               controllers.AuthController.updateProfile
+
+# Family
+POST    /api/families                                   controllers.FamilyController.create
+POST    /api/families/join                              controllers.FamilyController.join
+GET     /api/families/mine                              controllers.FamilyController.mine
+PATCH   /api/families/mine                              controllers.FamilyController.updateName
+GET     /api/families/mine/invite-code                  controllers.FamilyController.inviteCode
+
+# Members
+GET     /api/members                                    controllers.MemberController.list
+POST    /api/members                                    controllers.MemberController.create
+PUT     /api/members/:id                                controllers.MemberController.update(id: String)
+DELETE  /api/members/:id                                controllers.MemberController.delete(id: String)
+
+# Events
+GET     /api/events                                     controllers.EventController.list(from: Option[String] ?= None, to: Option[String] ?= None, memberId: Option[String] ?= None)
+POST    /api/events                                     controllers.EventController.create
+GET     /api/events/:id                                 controllers.EventController.get(id: String)
+PUT     /api/events/:id                                 controllers.EventController.update(id: String)
+DELETE  /api/events/:id                                 controllers.EventController.delete(id: String)
+
+# Tasks
+GET     /api/tasks                                      controllers.TaskController.list(assignedTo: Option[String] ?= None, status: Option[String] ?= None, priority: Option[String] ?= None)
+POST    /api/tasks                                      controllers.TaskController.create
+GET     /api/tasks/:id                                  controllers.TaskController.get(id: String)
+PUT     /api/tasks/:id                                  controllers.TaskController.update(id: String)
+PATCH   /api/tasks/:id/complete                         controllers.TaskController.complete(id: String)
+DELETE  /api/tasks/:id                                  controllers.TaskController.delete(id: String)
+
+# Shopping
+GET     /api/shopping/lists                             controllers.ShoppingController.listLists
+POST    /api/shopping/lists                             controllers.ShoppingController.createList
+DELETE  /api/shopping/lists/:id                         controllers.ShoppingController.deleteList(id: String)
+GET     /api/shopping/lists/:id/items                   controllers.ShoppingController.listItems(id: String)
+POST    /api/shopping/lists/:id/items                   controllers.ShoppingController.addItem(id: String)
+DELETE  /api/shopping/lists/:id/items/checked           controllers.ShoppingController.clearChecked(id: String)
+PATCH   /api/shopping/lists/:listId/items/:itemId/check controllers.ShoppingController.checkItem(listId: String, itemId: String)
+DELETE  /api/shopping/lists/:listId/items/:itemId       controllers.ShoppingController.deleteItem(listId: String, itemId: String)
+
+# Rewards
+GET     /api/rewards                                    controllers.RewardController.list(memberId: Option[String] ?= None, status: Option[String] ?= None)
+POST    /api/rewards                                    controllers.RewardController.create
+PATCH   /api/rewards/:id/request                        controllers.RewardController.request(id: String)
+PATCH   /api/rewards/:id/approve                        controllers.RewardController.approve(id: String)
+PATCH   /api/rewards/:id/redeem                         controllers.RewardController.redeem(id: String)
+DELETE  /api/rewards/:id                                controllers.RewardController.delete(id: String)
+
+# Dashboard
+GET     /api/dashboard                                  controllers.DashboardController.get
