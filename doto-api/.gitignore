@@ -1,0 +1,21 @@
+# sbt
+target/
+project/target/
+project/project/
+
+# IDE
+.idea/
+.vscode/
+.metals/
+.bloop/
+*.metals.sbt
+
+# Play
+logs/
+RUNNING_PID
+
+# Dev config (contains secrets)
+conf/dev.conf
+
+# OS
+.DS_Store
