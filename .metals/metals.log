@@ -4985,3 +4985,100 @@ INFO: Unsupported notification method: $/setTrace
 2026.03.29 14:58:15 INFO  no build target found for /Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/app/repositories/EventRepository.scala. Using presentation compiler with project's scala-library version: 3.3.7
 Mar 29, 2026 10:46:13 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
 INFO: Unsupported notification method: $/setTrace
+2026.03.30 22:38:44 INFO  Started: Metals version 1.6.6 in folders '/Users/shivakomatreddy/Documents/Claude/Projects/DOTO' for client Windsurf 1.108.2.
+2026.03.30 22:38:44 INFO  Memory monitor started
+2026.03.30 22:38:44 WARN  Using H2 2.4.240 which is newer than the version Flyway has been verified with. The latest verified version of H2 is 2.3.232.
+2026.03.30 22:38:53 WARN  no build target for: /Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/app/controllers/FamilyController.scala
+2026.03.30 22:38:53 INFO  no build target found for /Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/app/controllers/FamilyController.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2026.03.30 22:38:54 INFO  no build target found for /Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/app/controllers/FamilyController.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2026.03.30 22:38:54 INFO  no build target found for /Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/app/controllers/FamilyController.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2026.03.30 22:38:54 INFO  no build target found for /Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/app/controllers/FamilyController.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2026.03.30 22:38:54 INFO  no build target found for /Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/app/controllers/FamilyController.scala. Using presentation compiler with project's scala-library version: 3.3.7
+Mar 30, 2026 10:38:56 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 8
+Mar 30, 2026 10:38:56 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 9
+2026.03.30 22:38:56 INFO  no build target found for /Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/app/controllers/DashboardController.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2026.03.30 22:38:56 INFO  no build target found for /Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/app/controllers/AuthController.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2026.03.30 22:38:56 INFO  no build target found for /Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/app/controllers/FamilyController.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2026.03.30 22:38:56 INFO  no build target found for /Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/app/controllers/DashboardController.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2026.03.30 22:38:56 INFO  no build target found for /Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/app/controllers/FamilyController.scala. Using presentation compiler with project's scala-library version: 3.3.7
+Exception in thread "pool-10-thread-1" java.lang.InterruptedException
+	at scala.meta.internal.metals.FutureCancelToken.checkCanceled(FutureCancelToken.scala:29)
+	at scala.meta.internal.pc.CompilerAccess.onCompilerJobQueue$$anonfun$1(CompilerAccess.scala:208)
+	at scala.meta.internal.pc.CompilerJobQueue$Job.run(CompilerJobQueue.scala:153)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Exception in thread "pool-12-thread-1" java.lang.InterruptedException
+	at scala.meta.internal.metals.FutureCancelToken.checkCanceled(FutureCancelToken.scala:29)
+	at scala.meta.internal.pc.CompilerAccess.onCompilerJobQueue$$anonfun$1(CompilerAccess.scala:208)
+	at scala.meta.internal.pc.CompilerJobQueue$Job.run(CompilerJobQueue.scala:153)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+2026.03.30 22:38:56 INFO  no build target found for /Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/app/controllers/DashboardController.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2026.03.30 22:38:56 INFO  no build target found for /Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/app/controllers/DashboardController.scala. Using presentation compiler with project's scala-library version: 3.3.7
+Exception in thread "pool-13-thread-1" java.lang.InterruptedException
+	at scala.meta.internal.metals.FutureCancelToken.checkCanceled(FutureCancelToken.scala:29)
+	at scala.meta.internal.pc.CompilerAccess.onCompilerJobQueue$$anonfun$1(CompilerAccess.scala:208)
+	at scala.meta.internal.pc.CompilerJobQueue$Job.run(CompilerJobQueue.scala:153)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+2026.03.30 22:38:56 INFO  no build target found for /Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/app/controllers/FamilyController.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2026.03.30 22:38:56 INFO  no build target found for /Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/app/controllers/FamilyController.scala. Using presentation compiler with project's scala-library version: 3.3.7
+Exception in thread "pool-15-thread-1" java.lang.InterruptedException
+	at scala.meta.internal.metals.FutureCancelToken.checkCanceled(FutureCancelToken.scala:29)
+	at scala.meta.internal.pc.CompilerAccess.onCompilerJobQueue$$anonfun$1(CompilerAccess.scala:208)
+	at scala.meta.internal.pc.CompilerJobQueue$Job.run(CompilerJobQueue.scala:153)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Exception in thread "pool-16-thread-1" java.lang.InterruptedException
+	at scala.meta.internal.metals.FutureCancelToken.checkCanceled(FutureCancelToken.scala:29)
+	at scala.meta.internal.pc.CompilerAccess.onCompilerJobQueue$$anonfun$1(CompilerAccess.scala:208)
+	at scala.meta.internal.pc.CompilerJobQueue$Job.run(CompilerJobQueue.scala:153)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+2026.03.30 22:38:57 INFO  no build target found for /Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/app/controllers/FamilyController.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2026.03.30 22:38:57 INFO  no build target found for /Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/app/controllers/FamilyController.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2026.03.30 22:38:57 INFO  no build target found for /Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/app/controllers/TaskController.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2026.03.30 22:38:57 INFO  no build target found for /Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/app/controllers/AuthController.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2026.03.30 22:38:57 INFO  no build target found for /Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/app/controllers/RewardController.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2026.03.30 22:38:57 INFO  no build target found for /Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/app/controllers/EventController.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2026.03.30 22:38:57 INFO  no build target found for /Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/app/controllers/DashboardController.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2026.03.30 22:38:57 INFO  Created report: Optional[file:///Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/app/controllers/FamilyController.scala]
+2026.03.30 22:38:57 INFO  empty definition using pc, found symbol in pc:  (full report at: "/Users/shivakomatreddy/Documents/Claude/Projects/DOTO/.metals/.reports/metals-full/2026-03-30/r_empty-definition_22-38-57-902.md")
+2026.03.30 22:38:58 INFO  no build target found for /Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/app/controllers/FamilyController.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2026.03.30 22:38:58 INFO  no build target found for /Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/app/controllers/FamilyController.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2026.03.30 22:38:58 INFO  no build target found for /Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/app/controllers/FamilyController.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2026.03.30 22:38:58 INFO  no build target found for /Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/app/controllers/TaskController.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2026.03.30 22:38:58 INFO  no build target found for /Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/app/controllers/TaskController.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2026.03.30 22:38:59 INFO  no build target found for /Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/app/controllers/TaskController.scala. Using presentation compiler with project's scala-library version: 3.3.7
+Exception in thread "pool-28-thread-1" java.lang.InterruptedException
+	at scala.meta.internal.metals.FutureCancelToken.checkCanceled(FutureCancelToken.scala:29)
+	at scala.meta.internal.pc.CompilerAccess.onCompilerJobQueue$$anonfun$1(CompilerAccess.scala:208)
+	at scala.meta.internal.pc.CompilerJobQueue$Job.run(CompilerJobQueue.scala:153)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+2026.03.30 22:38:59 INFO  no build target found for /Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/app/controllers/FamilyController.scala. Using presentation compiler with project's scala-library version: 3.3.7
+Mar 30, 2026 10:38:59 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 20
+2026.03.30 22:38:58 INFO  no build target found for /Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/app/controllers/FamilyController.scala. Using presentation compiler with project's scala-library version: 3.3.7
+Exception in thread "pool-30-thread-1" java.lang.InterruptedException
+	at scala.meta.internal.metals.FutureCancelToken.checkCanceled(FutureCancelToken.scala:29)
+	at scala.meta.internal.pc.CompilerAccess.onCompilerJobQueue$$anonfun$1(CompilerAccess.scala:208)
+	at scala.meta.internal.pc.CompilerJobQueue$Job.run(CompilerJobQueue.scala:153)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+2026.03.30 22:38:59 INFO  no build target found for /Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/app/controllers/FamilyController.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2026.03.30 22:39:00 INFO  no build target found for /Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/app/controllers/FamilyController.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2026.03.30 22:39:00 INFO  no build target found for /Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/app/controllers/FamilyController.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2026.03.30 22:39:00 INFO  no build target found for /Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/app/controllers/FamilyController.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2026.03.30 22:39:00 INFO  no build target found for /Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/app/controllers/FamilyController.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2026.03.30 22:39:00 INFO  no build target found for /Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/app/controllers/FamilyController.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2026.03.30 22:39:00 INFO  no build target found for /Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/app/controllers/FamilyController.scala. Using presentation compiler with project's scala-library version: 3.3.7

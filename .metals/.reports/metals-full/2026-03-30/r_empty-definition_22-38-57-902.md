@@ -1,3 +1,18 @@
+error id: file://<WORKSPACE>/doto-api/app/controllers/FamilyController.scala:AuthenticatedAction#
+file://<WORKSPACE>/doto-api/app/controllers/FamilyController.scala
+empty definition using pc, found symbol in pc: 
+empty definition using semanticdb
+empty definition using fallback
+non-local guesses:
+	 -actions/AuthenticatedAction#
+	 -io/circe/syntax/AuthenticatedAction#
+	 -play/api/mvc/AuthenticatedAction#
+	 -AuthenticatedAction#
+	 -scala/Predef.AuthenticatedAction#
+offset: 558
+uri: file://<WORKSPACE>/doto-api/app/controllers/FamilyController.scala
+text:
+```scala
 package controllers
 
 import actions.AuthenticatedAction
@@ -17,7 +32,7 @@ import java.util.UUID
 @Singleton
 class FamilyController @Inject()(
   cc:          ControllerComponents,
-  auth:        AuthenticatedAction,
+  auth:        Authenti@@catedAction,
   familyRepo:  FamilyRepository,
   profileRepo: ProfileRepository,
   jwtUtils:    JwtUtils
@@ -192,3 +207,10 @@ class FamilyController @Inject()(
       "streak"        -> p.streak.asJson,
       "isAuthAccount" -> p.isAuthAccount.asJson
     )
+
+```
+
+
+#### Short summary: 
+
+empty definition using pc, found symbol in pc: 
