@@ -100,5 +100,6 @@ class DashboardController @Inject()(
       "displayName" -> p.displayName.asJson,
       "role"        -> p.role.asJson,
       "color"       -> p.color.asJson,
-      "points"      -> p.points.asJson
+      "points"      -> p.points.asJson,
+      "streak"      -> p.streak.asJson
     )

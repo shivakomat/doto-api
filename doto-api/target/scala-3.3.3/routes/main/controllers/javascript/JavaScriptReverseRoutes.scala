@@ -9,7 +9,7 @@ import _root_.controllers.Assets.Asset
 // @LINE:2
 package controllers.javascript {
 
-  // @LINE:24
+  // @LINE:26
   class ReverseEventController(_prefix: => String) {
 
     def _defaultPrefix: String = {
@@ -17,7 +17,7 @@ package controllers.javascript {
     }
 
   
-    // @LINE:25
+    // @LINE:27
     def create: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.EventController.create",
       """
@@ -27,7 +27,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:24
+    // @LINE:26
     def list: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.EventController.list",
       """
@@ -37,7 +37,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:28
+    // @LINE:30
     def delete: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.EventController.delete",
       """
@@ -47,7 +47,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:27
+    // @LINE:29
     def update: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.EventController.update",
       """
@@ -57,7 +57,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:26
+    // @LINE:28
     def get: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.EventController.get",
       """
@@ -69,7 +69,7 @@ package controllers.javascript {
   
   }
 
-  // @LINE:57
+  // @LINE:59
   class ReverseDashboardController(_prefix: => String) {
 
     def _defaultPrefix: String = {
@@ -77,7 +77,7 @@ package controllers.javascript {
     }
 
   
-    // @LINE:57
+    // @LINE:59
     def get: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.DashboardController.get",
       """
@@ -89,7 +89,7 @@ package controllers.javascript {
   
   }
 
-  // @LINE:18
+  // @LINE:20
   class ReverseMemberController(_prefix: => String) {
 
     def _defaultPrefix: String = {
@@ -97,7 +97,7 @@ package controllers.javascript {
     }
 
   
-    // @LINE:18
+    // @LINE:20
     def list: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.MemberController.list",
       """
@@ -107,7 +107,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:19
+    // @LINE:21
     def create: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.MemberController.create",
       """
@@ -117,7 +117,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:20
+    // @LINE:22
     def update: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.MemberController.update",
       """
@@ -127,7 +127,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:21
+    // @LINE:23
     def delete: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.MemberController.delete",
       """
@@ -139,7 +139,7 @@ package controllers.javascript {
   
   }
 
-  // @LINE:39
+  // @LINE:41
   class ReverseShoppingController(_prefix: => String) {
 
     def _defaultPrefix: String = {
@@ -147,7 +147,7 @@ package controllers.javascript {
     }
 
   
-    // @LINE:41
+    // @LINE:43
     def deleteList: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.ShoppingController.deleteList",
       """
@@ -157,7 +157,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:43
+    // @LINE:45
     def addItem: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.ShoppingController.addItem",
       """
@@ -167,7 +167,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:39
+    // @LINE:41
     def listLists: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.ShoppingController.listLists",
       """
@@ -177,7 +177,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:45
+    // @LINE:47
     def checkItem: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.ShoppingController.checkItem",
       """
@@ -187,7 +187,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:44
+    // @LINE:46
     def clearChecked: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.ShoppingController.clearChecked",
       """
@@ -197,7 +197,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:40
+    // @LINE:42
     def createList: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.ShoppingController.createList",
       """
@@ -207,7 +207,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:46
+    // @LINE:48
     def deleteItem: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.ShoppingController.deleteItem",
       """
@@ -217,7 +217,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:42
+    // @LINE:44
     def listItems: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.ShoppingController.listItems",
       """
@@ -237,6 +237,16 @@ package controllers.javascript {
     }
 
   
+    // @LINE:7
+    def me: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.AuthController.me",
+      """
+        function() {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "api/auth/me"})
+        }
+      """
+    )
+  
     // @LINE:5
     def register: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.AuthController.register",
@@ -247,22 +257,12 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:6
-    def login: JavaScriptReverseRoute = JavaScriptReverseRoute(
-      "controllers.AuthController.login",
+    // @LINE:9
+    def changePassword: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.AuthController.changePassword",
       """
         function() {
-          return _wA({method:"POST", url:"""" + _prefix + { _defaultPrefix } + """" + "api/auth/login"})
-        }
-      """
-    )
-  
-    // @LINE:7
-    def me: JavaScriptReverseRoute = JavaScriptReverseRoute(
-      "controllers.AuthController.me",
-      """
-        function() {
-          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "api/auth/me"})
+          return _wA({method:"PATCH", url:"""" + _prefix + { _defaultPrefix } + """" + "api/auth/change-password"})
         }
       """
     )
@@ -277,9 +277,19 @@ package controllers.javascript {
       """
     )
   
+    // @LINE:6
+    def login: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.AuthController.login",
+      """
+        function() {
+          return _wA({method:"POST", url:"""" + _prefix + { _defaultPrefix } + """" + "api/auth/login"})
+        }
+      """
+    )
+  
   }
 
-  // @LINE:49
+  // @LINE:51
   class ReverseRewardController(_prefix: => String) {
 
     def _defaultPrefix: String = {
@@ -287,7 +297,7 @@ package controllers.javascript {
     }
 
   
-    // @LINE:49
+    // @LINE:51
     def list: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.RewardController.list",
       """
@@ -297,7 +307,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:50
+    // @LINE:52
     def create: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.RewardController.create",
       """
@@ -307,7 +317,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:52
+    // @LINE:54
     def approve: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.RewardController.approve",
       """
@@ -317,7 +327,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:53
+    // @LINE:55
     def redeem: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.RewardController.redeem",
       """
@@ -327,7 +337,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:51
+    // @LINE:53
     def request: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.RewardController.request",
       """
@@ -337,7 +347,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:54
+    // @LINE:56
     def delete: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.RewardController.delete",
       """
@@ -349,7 +359,7 @@ package controllers.javascript {
   
   }
 
-  // @LINE:11
+  // @LINE:12
   class ReverseFamilyController(_prefix: => String) {
 
     def _defaultPrefix: String = {
@@ -357,7 +367,7 @@ package controllers.javascript {
     }
 
   
-    // @LINE:11
+    // @LINE:13
     def create: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.FamilyController.create",
       """
@@ -367,7 +377,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:13
+    // @LINE:15
     def mine: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.FamilyController.mine",
       """
@@ -377,7 +387,17 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:14
+    // @LINE:12
+    def preview: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.FamilyController.preview",
+      """
+        function(code0) {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "api/families/preview/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("code", code0))})
+        }
+      """
+    )
+  
+    // @LINE:16
     def updateName: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.FamilyController.updateName",
       """
@@ -387,7 +407,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:12
+    // @LINE:14
     def join: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.FamilyController.join",
       """
@@ -397,7 +417,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:15
+    // @LINE:17
     def inviteCode: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.FamilyController.inviteCode",
       """
@@ -429,7 +449,7 @@ package controllers.javascript {
   
   }
 
-  // @LINE:31
+  // @LINE:33
   class ReverseTaskController(_prefix: => String) {
 
     def _defaultPrefix: String = {
@@ -437,7 +457,7 @@ package controllers.javascript {
     }
 
   
-    // @LINE:32
+    // @LINE:34
     def create: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.TaskController.create",
       """
@@ -447,7 +467,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:31
+    // @LINE:33
     def list: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.TaskController.list",
       """
@@ -457,7 +477,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:36
+    // @LINE:38
     def delete: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.TaskController.delete",
       """
@@ -467,7 +487,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:34
+    // @LINE:36
     def update: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.TaskController.update",
       """
@@ -477,7 +497,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:35
+    // @LINE:37
     def complete: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.TaskController.complete",
       """
@@ -487,7 +507,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:33
+    // @LINE:35
     def get: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.TaskController.get",
       """

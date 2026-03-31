@@ -47,7 +47,7 @@ class FamilyControllerSpec extends BaseSpec:
 
     "return 200 and join the family using a valid invite code" in {
       val joinerToken = registerUser(s"fam_j_$uniq")
-      val result      = makePost("/api/families/join", s"""{"inviteCode":"$inviteCode"}""", Some(joinerToken))
+      val result      = makePost("/api/families/join", s"""{"inviteCode":"$inviteCode","role":"parent"}""", Some(joinerToken))
       status(result) mustBe OK
       val json = parseBody(result)
       field(json, "id") mustBe familyId
@@ -56,13 +56,13 @@ class FamilyControllerSpec extends BaseSpec:
     }
 
     "return 409 when user already belongs to a family" in {
-      val result = makePost("/api/families/join", s"""{"inviteCode":"$inviteCode"}""", Some(token))
+      val result = makePost("/api/families/join", s"""{"inviteCode":"$inviteCode","role":"parent"}""", Some(token))
       status(result) mustBe CONFLICT
     }
 
     "return 404 for an invalid invite code" in {
       val t3     = registerUser(s"fam_i_$uniq")
-      val result = makePost("/api/families/join", """{"inviteCode":"XXXXXX"}""", Some(t3))
+      val result = makePost("/api/families/join", """{"inviteCode":"XXXXXX","role":"parent"}""", Some(t3))
       status(result) mustBe NOT_FOUND
     }
   }
@@ -86,10 +86,12 @@ class FamilyControllerSpec extends BaseSpec:
 
   "GET /api/families/mine/invite-code" should {
 
-    "return 200 with the invite code" in {
+    "return 200 with the invite code and family name" in {
       val result = makeGet("/api/families/mine/invite-code", Some(token))
       status(result) mustBe OK
-      field(parseBody(result), "inviteCode") mustBe inviteCode
+      val json = parseBody(result)
+      field(json, "inviteCode") mustBe inviteCode
+      field(json, "familyName") must not be empty
     }
 
     "return 401 with no token" in {

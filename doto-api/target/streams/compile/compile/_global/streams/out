@@ -1,3 +1,6 @@
 [warn] Flag -deprecation set repeatedly
 [warn] Flag -unchecked set repeatedly
 [warn] two warnings found
+[warn] Flag -deprecation set repeatedly
+[warn] Flag -unchecked set repeatedly
+[warn] four warnings found

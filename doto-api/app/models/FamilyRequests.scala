@@ -7,7 +7,7 @@ case class CreateFamilyRequest(name: String)
 object CreateFamilyRequest:
   given Decoder[CreateFamilyRequest] = deriveDecoder
 
-case class JoinFamilyRequest(inviteCode: String)
+case class JoinFamilyRequest(inviteCode: String, role: String)
 object JoinFamilyRequest:
   given Decoder[JoinFamilyRequest] = deriveDecoder
 

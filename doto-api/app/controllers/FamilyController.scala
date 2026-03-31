@@ -24,6 +24,26 @@ class FamilyController @Inject()(
 
   import JsonHelper.*
 
+  private val palette = List("#185FA5","#1D9E75","#BA7517","#993556","#534AB7","#E24B4A")
+
+  private def assignNextColor(existingMembers: Seq[models.Profile]): String =
+    val used = existingMembers.map(_.color).toSet
+    palette.find(c => !used.contains(c)).getOrElse(palette(existingMembers.size % palette.size))
+
+  def preview(code: String): Action[AnyContent] = Action.async { _ =>
+    familyRepo.findByInviteCode(code.trim.toUpperCase).flatMap {
+      case None => Future.successful(notFound("Invite code not found"))
+      case Some(family) =>
+        profileRepo.listByFamily(family.id).map { members =>
+          Ok(Json.obj(
+            "familyName"  -> family.name.asJson,
+            "memberCount" -> members.size.asJson,
+            "inviteCode"  -> family.inviteCode.asJson
+          ).noSpaces).as("application/json")
+        }
+    }
+  }
+
   def create: Action[AnyContent] = auth.async { request =>
     val body = readBody(request)
     decode[CreateFamilyRequest](body) match
@@ -40,8 +60,9 @@ class FamilyController @Inject()(
               generateUniqueCode().flatMap { code =>
                 val family = Family(name = req.name.trim, inviteCode = code)
                 familyRepo.create(family).flatMap { created =>
-                  profileRepo.setFamily(profile.id, created.id).flatMap { _ =>
-                    val updatedProfile = profile.copy(familyId = Some(created.id))
+                  val firstColor = palette.head
+                  profileRepo.joinFamily(profile.id, created.id, profile.role, firstColor).flatMap { _ =>
+                    val updatedProfile = profile.copy(familyId = Some(created.id), color = firstColor)
                     buildFamilyResponse(created, Seq(updatedProfile)).map(j =>
                       Created(j.noSpaces).as("application/json")
                     )
@@ -56,23 +77,27 @@ class FamilyController @Inject()(
     decode[JoinFamilyRequest](body) match
       case Left(_)    => Future.successful(badRequest("Invalid request body"))
       case Right(req) =>
-        profileRepo.findById(request.userId).flatMap {
-          case None => Future.successful(notFound("Profile not found"))
-          case Some(profile) if profile.familyId.isDefined =>
-            Future.successful(conflict("User already belongs to a family"))
-          case Some(profile) =>
-            familyRepo.findByInviteCode(req.inviteCode.toUpperCase).flatMap {
-              case None => Future.successful(notFound("Invite code not found"))
-              case Some(family) =>
-                profileRepo.setFamily(profile.id, family.id).flatMap { _ =>
+        if !Set("parent", "child").contains(req.role) then
+          Future.successful(badRequest("role must be parent or child"))
+        else
+          profileRepo.findById(request.userId).flatMap {
+            case None => Future.successful(notFound("Profile not found"))
+            case Some(profile) if profile.familyId.isDefined =>
+              Future.successful(conflict("User already belongs to a family"))
+            case Some(profile) =>
+              familyRepo.findByInviteCode(req.inviteCode.trim.toUpperCase).flatMap {
+                case None => Future.successful(notFound("Invite code not found"))
+                case Some(family) =>
                   profileRepo.listByFamily(family.id).flatMap { members =>
-                    val allMembers = if members.exists(_.id == profile.id) then members
-                                    else members :+ profile.copy(familyId = Some(family.id))
-                    buildFamilyResponse(family, allMembers).map(j => Ok(j.noSpaces).as("application/json"))
+                    val color = assignNextColor(members)
+                    profileRepo.joinFamily(profile.id, family.id, req.role, color).flatMap { _ =>
+                      profileRepo.listByFamily(family.id).flatMap { updatedMembers =>
+                        buildFamilyResponse(family, updatedMembers).map(j => Ok(j.noSpaces).as("application/json"))
+                      }
+                    }
                   }
-                }
-            }
-        }
+              }
+          }
   }
 
   def mine: Action[AnyContent] = auth.async { request =>
@@ -116,7 +141,11 @@ class FamilyController @Inject()(
       case Some(fid) =>
         familyRepo.findById(fid).map {
           case None         => notFound("Family not found")
-          case Some(family) => Ok(Json.obj("inviteCode" -> family.inviteCode.asJson).noSpaces).as("application/json")
+          case Some(family) =>
+            Ok(Json.obj(
+              "inviteCode"  -> family.inviteCode.asJson,
+              "familyName"  -> family.name.asJson
+            ).noSpaces).as("application/json")
         }
   }
 
@@ -150,9 +179,11 @@ class FamilyController @Inject()(
   private def memberView(p: models.Profile): Json =
     Json.obj(
       "id"            -> p.id.toString.asJson,
+      "username"      -> p.username.asJson,
       "displayName"   -> p.displayName.asJson,
       "role"          -> p.role.asJson,
       "color"         -> p.color.asJson,
       "points"        -> p.points.asJson,
+      "streak"        -> p.streak.asJson,
       "isAuthAccount" -> p.isAuthAccount.asJson
     )

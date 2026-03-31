@@ -19,7 +19,7 @@ class ProfileRepository @Inject()(
     db.run(Profiles.filter(_.id === id).result.headOption)
 
   def findByUsername(username: String): Future[Option[Profile]] =
-    db.run(Profiles.filter(_.username === username).result.headOption)
+    db.run(Profiles.filter(_.username === username.toLowerCase).result.headOption)
 
   def listByFamily(familyId: UUID): Future[Seq[Profile]] =
     db.run(Profiles.filter(_.familyId === familyId).result)
@@ -46,6 +46,13 @@ class ProfileRepository @Inject()(
         .update((Some(familyId), Instant.now()))
     ).map(_ => ())
 
+  def joinFamily(id: UUID, familyId: UUID, role: String, color: String): Future[Unit] =
+    db.run(
+      Profiles.filter(_.id === id)
+        .map(p => (p.familyId, p.role, p.color, p.updatedAt))
+        .update((Some(familyId), role, color, Instant.now()))
+    ).map(_ => ())
+
   def addPoints(id: UUID, pts: Int): Future[Unit] =
     findById(id).flatMap {
       case None    => Future.unit
@@ -54,6 +61,13 @@ class ProfileRepository @Inject()(
           Profiles.filter(_.id === id).map(_.points).update(p.points + pts)
         ).map(_ => ())
     }
+
+  def changePassword(id: UUID, newHash: String): Future[Unit] =
+    db.run(
+      Profiles.filter(_.id === id)
+        .map(p => (p.passwordHash, p.updatedAt))
+        .update((newHash, Instant.now()))
+    ).map(_ => ())
 
   def delete(id: UUID): Future[Boolean] =
     db.run(Profiles.filter(_.id === id).delete).map(_ > 0)

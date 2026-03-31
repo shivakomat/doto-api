@@ -43,8 +43,11 @@ class MemberController @Inject()(
             request.familyId match
               case None      => Future.successful(forbidden("User has no family"))
               case Some(fid) =>
+                val placeholderId = java.util.UUID.randomUUID().toString.replace("-", "").take(16)
                 val profile = Profile(
                   familyId      = Some(fid),
+                  username      = s"member_$placeholderId",
+                  passwordHash  = "",
                   displayName   = req.displayName,
                   color         = req.color,
                   role          = "child",
@@ -108,9 +111,11 @@ class MemberController @Inject()(
   private def memberView(p: Profile): Json =
     Json.obj(
       "id"            -> p.id.toString.asJson,
+      "username"      -> (if p.isAuthAccount then p.username.asJson else Json.Null),
       "displayName"   -> p.displayName.asJson,
       "role"          -> p.role.asJson,
       "color"         -> p.color.asJson,
       "points"        -> p.points.asJson,
+      "streak"        -> p.streak.asJson,
       "isAuthAccount" -> p.isAuthAccount.asJson
     )

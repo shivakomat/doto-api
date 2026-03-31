@@ -50,9 +50,9 @@ trait BaseSpec extends PlaySpec with GuiceOneAppPerSuite with BeforeAndAfterAll:
   protected def fieldInt(json: Json, key: String): Int =
     json.hcursor.downField(key).as[Int].getOrElse(-1)
 
-  protected def registerUser(username: String, password: String = "password123", displayName: String = "Test User"): String =
+  protected def registerUser(username: String, password: String = "password123", displayName: String = "Test User", role: String = "parent"): String =
     val result = makePost("/api/auth/register",
-      s"""{"username":"$username","password":"$password","displayName":"$displayName"}"""
+      s"""{"username":"$username","password":"$password","displayName":"$displayName","role":"$role"}"""
     )
     field(parseBody(result), "token")
 

@@ -12,7 +12,7 @@ class AuthControllerSpec extends BaseSpec:
 
     "return 201 with token and profile on valid registration" in {
       val result = makePost("/api/auth/register",
-        s"""{"username":"$username","password":"$password","displayName":"Auth User"}""")
+        s"""{"username":"$username","password":"$password","displayName":"Auth User","role":"parent"}""")
       status(result) mustBe CREATED
       val json = parseBody(result)
       val token = field(json, "token")
@@ -27,33 +27,33 @@ class AuthControllerSpec extends BaseSpec:
 
     "return 409 when username is already taken" in {
       val result = makePost("/api/auth/register",
-        s"""{"username":"$username","password":"$password","displayName":"Dup"}""")
+        s"""{"username":"$username","password":"$password","displayName":"Dup","role":"parent"}""")
       status(result) mustBe CONFLICT
       field(parseBody(result), "code") mustBe "conflict"
     }
 
     "return 400 when username is too short" in {
       val result = makePost("/api/auth/register",
-        s"""{"username":"ab","password":"$password","displayName":"X"}""")
+        s"""{"username":"ab","password":"$password","displayName":"X","role":"parent"}""")
       status(result) mustBe BAD_REQUEST
       field(parseBody(result), "code") mustBe "validation_error"
     }
 
     "return 400 when username contains invalid characters" in {
       val result = makePost("/api/auth/register",
-        s"""{"username":"bad user!","password":"$password","displayName":"X"}""")
+        s"""{"username":"bad user!","password":"$password","displayName":"X","role":"parent"}""")
       status(result) mustBe BAD_REQUEST
     }
 
     "return 400 when password is too short" in {
       val result = makePost("/api/auth/register",
-        s"""{"username":"new_$uniq","password":"short","displayName":"X"}""")
+        s"""{"username":"new_$uniq","password":"short","displayName":"X","role":"parent"}""")
       status(result) mustBe BAD_REQUEST
     }
 
     "return 400 when displayName is empty" in {
       val result = makePost("/api/auth/register",
-        s"""{"username":"new2_$uniq","password":"$password","displayName":""}""")
+        s"""{"username":"new2_$uniq","password":"$password","displayName":"","role":"parent"}""")
       status(result) mustBe BAD_REQUEST
     }
 

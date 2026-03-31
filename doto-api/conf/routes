@@ -6,8 +6,10 @@ POST    /api/auth/register                              controllers.AuthControll
 POST    /api/auth/login                                 controllers.AuthController.login
 GET     /api/auth/me                                    controllers.AuthController.me
 PATCH   /api/auth/profile                               controllers.AuthController.updateProfile
+PATCH   /api/auth/change-password                       controllers.AuthController.changePassword
 
 # Family
+GET     /api/families/preview/:code                     controllers.FamilyController.preview(code: String)
 POST    /api/families                                   controllers.FamilyController.create
 POST    /api/families/join                              controllers.FamilyController.join
 GET     /api/families/mine                              controllers.FamilyController.mine

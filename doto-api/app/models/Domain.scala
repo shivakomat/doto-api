@@ -3,7 +3,7 @@ package models
 import io.circe.{Encoder, Decoder}
 import io.circe.generic.semiauto.*
 import java.util.UUID
-import java.time.Instant
+import java.time.{Instant, LocalDate}
 
 // ── Family ────────────────────────────────────────────────────────────────────
 
@@ -22,17 +22,19 @@ object Family:
 // ── Profile ───────────────────────────────────────────────────────────────────
 
 case class Profile(
-  id:            UUID          = UUID.randomUUID(),
-  familyId:      Option[UUID]  = None,
-  username:      Option[String] = None,
-  passwordHash:  Option[String] = None,
-  displayName:   String,
-  role:          String        = "parent",
-  color:         String        = "#6C63FF",
-  points:        Int           = 0,
-  isAuthAccount: Boolean       = true,
-  createdAt:     Instant       = Instant.now(),
-  updatedAt:     Instant       = Instant.now()
+  id:             UUID              = UUID.randomUUID(),
+  familyId:       Option[UUID]      = None,
+  username:       String,
+  passwordHash:   String,
+  displayName:    String,
+  role:           String            = "parent",
+  color:          String            = "#6C63FF",
+  points:         Int               = 0,
+  streak:         Int               = 0,
+  lastStreakDate: Option[LocalDate]  = None,
+  isAuthAccount:  Boolean           = true,
+  createdAt:      Instant           = Instant.now(),
+  updatedAt:      Instant           = Instant.now()
 )
 
 object Profile:
