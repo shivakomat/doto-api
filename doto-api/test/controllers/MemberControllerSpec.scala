@@ -41,6 +41,7 @@ class MemberControllerSpec extends BaseSpec:
       field(json, "displayName") mustBe "Junior"
       field(json, "role") mustBe "child"
       json.hcursor.downField("isAuthAccount").as[Boolean].getOrElse(true) mustBe false
+      json.hcursor.downField("username").as[Option[String]].getOrElse(Some("x")) mustBe None
     }
 
     "return 400 for an invalid hex colour" in {
@@ -72,6 +73,23 @@ class MemberControllerSpec extends BaseSpec:
       val result = makePut("/api/members/00000000-0000-0000-0000-000000000000",
         """{"displayName":"Ghost"}""", Some(parentToken))
       status(result) mustBe NOT_FOUND
+    }
+  }
+
+  "GET /api/members/:id/claim-status" should {
+
+    "return 200 with isClaimed false for an unclaimed child" in {
+      val result = makeGet(s"/api/members/$childId/claim-status", Some(parentToken))
+      status(result) mustBe OK
+      val json = parseBody(result)
+      json.hcursor.downField("isClaimed").as[Boolean].getOrElse(true) mustBe false
+      json.hcursor.downField("username").as[Option[String]].getOrElse(Some("x")) mustBe None
+      field(json, "displayName") mustBe "Junior"
+    }
+
+    "return 401 with no token" in {
+      val result = makeGet(s"/api/members/$childId/claim-status")
+      status(result) mustBe UNAUTHORIZED
     }
   }
 

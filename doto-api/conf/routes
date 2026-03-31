@@ -4,6 +4,7 @@ GET     /api/health                                     controllers.HealthContro
 # Auth (no JWT required)
 POST    /api/auth/register                              controllers.AuthController.register
 POST    /api/auth/login                                 controllers.AuthController.login
+POST    /api/auth/claim-profile                         controllers.AuthController.claimProfile
 GET     /api/auth/me                                    controllers.AuthController.me
 PATCH   /api/auth/profile                               controllers.AuthController.updateProfile
 PATCH   /api/auth/change-password                       controllers.AuthController.changePassword
@@ -19,6 +20,7 @@ GET     /api/families/mine/invite-code                  controllers.FamilyContro
 # Members
 GET     /api/members                                    controllers.MemberController.list
 POST    /api/members                                    controllers.MemberController.create
+GET     /api/members/:id/claim-status                   controllers.MemberController.claimStatus(id: String)
 PUT     /api/members/:id                                controllers.MemberController.update(id: String)
 DELETE  /api/members/:id                                controllers.MemberController.delete(id: String)
 

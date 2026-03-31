@@ -8,8 +8,8 @@ import java.time.{Instant, LocalDate}
 class ProfileTable(tag: Tag) extends Table[Profile](tag, "profiles"):
   def id             = column[UUID]("id", O.PrimaryKey)
   def familyId       = column[Option[UUID]]("family_id")
-  def username       = column[String]("username")
-  def passwordHash   = column[String]("password_hash")
+  def username       = column[Option[String]]("username")
+  def passwordHash   = column[Option[String]]("password_hash")
   def displayName    = column[String]("display_name")
   def role           = column[String]("role")
   def color          = column[String]("color")

@@ -11,18 +11,20 @@ class FamilyControllerSpec extends BaseSpec:
 
   "POST /api/families" should {
 
-    "return 201 with family and members list on creation" in {
+    "return 201 with token and family on creation" in {
       token = registerUser(s"fam_p_$uniq")
       val result = makePost("/api/families", s"""{"name":"Smith Family $uniq"}""", Some(token))
       status(result) mustBe CREATED
-      val json = parseBody(result)
-      familyId   = field(json, "id")
-      inviteCode = field(json, "inviteCode")
+      val json   = parseBody(result)
+      val family = json.hcursor.downField("family")
+      familyId   = family.downField("id").as[String].getOrElse("")
+      inviteCode = family.downField("inviteCode").as[String].getOrElse("")
       familyId must not be empty
       inviteCode must have length 6
-      field(json, "name") mustBe s"Smith Family $uniq"
-      json.hcursor.downField("members").as[List[io.circe.Json]].getOrElse(Nil) must not be empty
-      token = loginUser(s"fam_p_$uniq")
+      family.downField("name").as[String].getOrElse("") mustBe s"Smith Family $uniq"
+      family.downField("members").as[List[io.circe.Json]].getOrElse(Nil) must not be empty
+      field(json, "token") must not be empty
+      token = field(json, "token")
     }
 
     "return 409 when user already belongs to a family" in {
@@ -45,17 +47,18 @@ class FamilyControllerSpec extends BaseSpec:
 
   "POST /api/families/join" should {
 
-    "return 200 and join the family using a valid invite code" in {
+    "return 200 with token and family on join" in {
       val joinerToken = registerUser(s"fam_j_$uniq")
       val result      = makePost("/api/families/join", s"""{"inviteCode":"$inviteCode","role":"parent"}""", Some(joinerToken))
       status(result) mustBe OK
-      val json = parseBody(result)
-      field(json, "id") mustBe familyId
-      val members = json.hcursor.downField("members").as[List[io.circe.Json]].getOrElse(Nil)
-      members.length must be >= 2
+      val json   = parseBody(result)
+      val family = json.hcursor.downField("family")
+      family.downField("id").as[String].getOrElse("") mustBe familyId
+      family.downField("members").as[List[io.circe.Json]].getOrElse(Nil).length must be >= 2
+      field(json, "token") must not be empty
     }
 
-    "return 409 when user already belongs to a family" in {
+    "return 409 when user already has a family on join" in {
       val result = makePost("/api/families/join", s"""{"inviteCode":"$inviteCode","role":"parent"}""", Some(token))
       status(result) mustBe CONFLICT
     }
@@ -97,5 +100,23 @@ class FamilyControllerSpec extends BaseSpec:
     "return 401 with no token" in {
       val result = makeGet("/api/families/mine/invite-code")
       status(result) mustBe UNAUTHORIZED
+    }
+  }
+
+  "GET /api/families/preview/:code" should {
+
+    "return 200 with family info and unclaimedChildren array" in {
+      val result = makeGet(s"/api/families/preview/$inviteCode")
+      status(result) mustBe OK
+      val json = parseBody(result)
+      field(json, "familyName") must not be empty
+      field(json, "inviteCode") mustBe inviteCode
+      json.hcursor.downField("memberCount").as[Int].toOption must not be empty
+      json.hcursor.downField("unclaimedChildren").as[List[io.circe.Json]] mustBe Right(Nil)
+    }
+
+    "return 404 for an unknown invite code" in {
+      val result = makeGet("/api/families/preview/ZZZZZZ")
+      status(result) mustBe NOT_FOUND
     }
   }

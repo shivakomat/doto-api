@@ -18,3 +18,7 @@ object UpdateProfileRequest:
 case class ChangePasswordRequest(currentPassword: String, newPassword: String)
 object ChangePasswordRequest:
   given Decoder[ChangePasswordRequest] = deriveDecoder
+
+case class ClaimProfileRequest(profileId: String, inviteCode: String, username: String, password: String)
+object ClaimProfileRequest:
+  given Decoder[ClaimProfileRequest] = deriveDecoder

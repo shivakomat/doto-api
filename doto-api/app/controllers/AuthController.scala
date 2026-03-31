@@ -1,7 +1,7 @@
 package controllers
 
 import actions.AuthenticatedAction
-import models.{Profile, RegisterRequest, LoginRequest, UpdateProfileRequest, ChangePasswordRequest}
+import models.{Profile, RegisterRequest, LoginRequest, UpdateProfileRequest, ChangePasswordRequest, ClaimProfileRequest}
 import repositories.{ProfileRepository, FamilyRepository}
 import utils.{JwtUtils, PasswordUtils}
 
@@ -56,8 +56,8 @@ class AuthController @Inject()(
               req.inviteCode match
                 case None =>
                   val profile = Profile(
-                    username     = uname,
-                    passwordHash = PasswordUtils.hash(req.password),
+                    username     = Some(uname),
+                    passwordHash = Some(PasswordUtils.hash(req.password)),
                     displayName  = req.displayName.trim,
                     role         = req.role
                   )
@@ -72,8 +72,8 @@ class AuthController @Inject()(
                       profileRepo.listByFamily(family.id).flatMap { members =>
                         val color = assignNextColor(members)
                         val profile = Profile(
-                          username     = uname,
-                          passwordHash = PasswordUtils.hash(req.password),
+                          username     = Some(uname),
+                          passwordHash = Some(PasswordUtils.hash(req.password)),
                           displayName  = req.displayName.trim,
                           role         = req.role,
                           color        = color,
@@ -96,11 +96,14 @@ class AuthController @Inject()(
         profileRepo.findByUsername(req.username.toLowerCase).map {
           case None => Unauthorized(errorBody("unauthorized", "Invalid username or password")).as("application/json")
           case Some(profile) =>
-            if !PasswordUtils.verify(req.password, profile.passwordHash) then
-              Unauthorized(errorBody("unauthorized", "Invalid username or password")).as("application/json")
-            else
-              val token = jwtUtils.issue(profile.id, profile.familyId)
-              Ok(buildAuthResponse(token, profile).noSpaces).as("application/json")
+            profile.passwordHash match
+              case None => Unauthorized(errorBody("unauthorized", "Invalid username or password")).as("application/json")
+              case Some(hash) =>
+                if !PasswordUtils.verify(req.password, hash) then
+                  Unauthorized(errorBody("unauthorized", "Invalid username or password")).as("application/json")
+                else
+                  val token = jwtUtils.issue(profile.id, profile.familyId)
+                  Ok(buildAuthResponse(token, profile).noSpaces).as("application/json")
         }
   }
 
@@ -138,12 +141,59 @@ class AuthController @Inject()(
           profileRepo.findById(request.userId).flatMap {
             case None => Future.successful(notFound("Profile not found"))
             case Some(p) =>
-              if !PasswordUtils.verify(req.currentPassword, p.passwordHash) then
-                Future.successful(Unauthorized(errorBody("unauthorized", "Current password is incorrect")).as("application/json"))
-              else
-                profileRepo.changePassword(p.id, PasswordUtils.hash(req.newPassword)).map { _ =>
-                  Ok(Json.obj("updated" -> true.asJson).noSpaces).as("application/json")
-                }
+              p.passwordHash match
+                case None => Future.successful(Unauthorized(errorBody("unauthorized", "Current password is incorrect")).as("application/json"))
+                case Some(hash) =>
+                  if !PasswordUtils.verify(req.currentPassword, hash) then
+                    Future.successful(Unauthorized(errorBody("unauthorized", "Current password is incorrect")).as("application/json"))
+                  else
+                    profileRepo.changePassword(p.id, PasswordUtils.hash(req.newPassword)).map { _ =>
+                      Ok(Json.obj("updated" -> true.asJson).noSpaces).as("application/json")
+                    }
+          }
+  }
+
+  def claimProfile: Action[AnyContent] = Action.async { request =>
+    val body = readBody(request)
+    decode[ClaimProfileRequest](body) match
+      case Left(_)    => Future.successful(badRequest("Invalid request body"))
+      case Right(req) =>
+        val uname = req.username.toLowerCase.trim
+        if uname.length < 3 || uname.length > 50 then
+          Future.successful(badRequest("username must be 3\u201350 characters"))
+        else if !uname.matches("^[a-z0-9_]+$") then
+          Future.successful(badRequest("username must be lowercase alphanumeric or underscore"))
+        else if req.password.length < 8 then
+          Future.successful(badRequest("password must be at least 8 characters"))
+        else
+          val code = req.inviteCode.trim.toUpperCase
+          familyRepo.findByInviteCode(code).flatMap {
+            case None => Future.successful(notFound("Invite code not found"))
+            case Some(family) =>
+              val profileId = try Some(UUID.fromString(req.profileId)) catch case _: Exception => None
+              profileId match
+                case None => Future.successful(badRequest("Invalid profileId format"))
+                case Some(pid) =>
+                  profileRepo.findById(pid).flatMap {
+                    case None => Future.successful(notFound("Profile not found"))
+                    case Some(profile) =>
+                      if profile.familyId != Some(family.id) then
+                        Future.successful(forbidden("Profile does not belong to this family"))
+                      else if profile.isAuthAccount then
+                        Future.successful(conflict("This profile already has an account"))
+                      else
+                        profileRepo.findByUsername(uname).flatMap {
+                          case Some(_) => Future.successful(conflict("Username already taken"))
+                          case None =>
+                            val hash = PasswordUtils.hash(req.password)
+                            profileRepo.claimProfile(pid, uname, hash).map {
+                              case None          => conflict("Profile could not be claimed")
+                              case Some(updated) =>
+                                val token = jwtUtils.issue(updated.id, updated.familyId)
+                                Created(buildAuthResponse(token, updated).noSpaces).as("application/json")
+                            }
+                        }
+                  }
           }
   }
 
@@ -160,6 +210,9 @@ class AuthController @Inject()(
       "isAuthAccount" -> p.isAuthAccount.asJson,
       "createdAt"     -> p.createdAt.toString.asJson
     )
+    
+  private def forbidden(msg: String): Result =
+    Forbidden(Json.obj("code" -> "forbidden".asJson, "message" -> msg.asJson).noSpaces).as("application/json")
 
   private def buildAuthResponse(token: String, p: Profile): Json =
     Json.obj(

@@ -24,8 +24,8 @@ object Family:
 case class Profile(
   id:             UUID              = UUID.randomUUID(),
   familyId:       Option[UUID]      = None,
-  username:       String,
-  passwordHash:   String,
+  username:       Option[String]    = None,
+  passwordHash:   Option[String]    = None,
   displayName:    String,
   role:           String            = "parent",
   color:          String            = "#6C63FF",

@@ -1,17 +1,11 @@
 [debug] Created transactional ClassFileManager with tempDir = /Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/target/scala-3.3.3/classes.bak
 [debug] About to delete class files:
-[debug] 	FamilyController.class
 [debug] 	AuthController.class
-[debug] 	FamilyController.tasty
 [debug] 	AuthController.tasty
 [debug] We backup class files:
-[debug] 	FamilyController.class
 [debug] 	AuthController.class
-[debug] 	FamilyController.tasty
 [debug] 	AuthController.tasty
 [debug] Registering generated classes:
-[debug] 	FamilyController.class
 [debug] 	AuthController.class
-[debug] 	FamilyController.tasty
 [debug] 	AuthController.tasty
 [debug] Removing the temporary directory used for backing up class files: /Users/shivakomatreddy/Documents/Claude/Projects/DOTO/doto-api/target/scala-3.3.3/classes.bak

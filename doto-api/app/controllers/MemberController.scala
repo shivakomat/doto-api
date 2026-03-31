@@ -43,11 +43,10 @@ class MemberController @Inject()(
             request.familyId match
               case None      => Future.successful(forbidden("User has no family"))
               case Some(fid) =>
-                val placeholderId = java.util.UUID.randomUUID().toString.replace("-", "").take(16)
                 val profile = Profile(
                   familyId      = Some(fid),
-                  username      = s"member_$placeholderId",
-                  passwordHash  = "",
+                  username      = None,
+                  passwordHash  = None,
                   displayName   = req.displayName,
                   color         = req.color,
                   role          = "child",
@@ -104,6 +103,23 @@ class MemberController @Inject()(
       case _                          => block
     }
 
+  def claimStatus(id: String): Action[AnyContent] = auth.async { request =>
+    withUUID(id) { uid =>
+      profileRepo.findById(uid).flatMap {
+        case None => Future.successful(notFound(s"Member $id not found"))
+        case Some(p) if p.familyId != request.familyId =>
+          Future.successful(forbidden("Member does not belong to your family"))
+        case Some(p) =>
+          Future.successful(ok(Json.obj(
+            "profileId"   -> p.id.toString.asJson,
+            "displayName" -> p.displayName.asJson,
+            "isClaimed"   -> p.isAuthAccount.asJson,
+            "username"    -> p.username.asJson
+          )))
+      }
+    }
+  }
+
   private def withUUID(id: String)(block: UUID => Future[Result]): Future[Result] =
     try block(UUID.fromString(id))
     catch case _: IllegalArgumentException => Future.successful(badRequest(s"Invalid UUID: $id"))
@@ -111,7 +127,7 @@ class MemberController @Inject()(
   private def memberView(p: Profile): Json =
     Json.obj(
       "id"            -> p.id.toString.asJson,
-      "username"      -> (if p.isAuthAccount then p.username.asJson else Json.Null),
+      "username"      -> p.username.asJson,
       "displayName"   -> p.displayName.asJson,
       "role"          -> p.role.asJson,
       "color"         -> p.color.asJson,

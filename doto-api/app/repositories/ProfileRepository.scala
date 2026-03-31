@@ -19,7 +19,25 @@ class ProfileRepository @Inject()(
     db.run(Profiles.filter(_.id === id).result.headOption)
 
   def findByUsername(username: String): Future[Option[Profile]] =
-    db.run(Profiles.filter(_.username === username.toLowerCase).result.headOption)
+    db.run(Profiles.filter(_.username === Option(username.toLowerCase)).result.headOption)
+
+  def findUnclaimedChildren(familyId: UUID): Future[Seq[Profile]] =
+    db.run(
+      Profiles
+        .filter(p => p.familyId === familyId && p.role === "child" && !p.isAuthAccount)
+        .result
+    )
+
+  def claimProfile(profileId: UUID, username: String, passwordHash: String): Future[Option[Profile]] =
+    db.run(
+      Profiles
+        .filter(p => p.id === profileId && !p.isAuthAccount)
+        .map(p => (p.username, p.passwordHash, p.isAuthAccount, p.updatedAt))
+        .update((Some(username), Some(passwordHash), true, Instant.now()))
+    ).flatMap { rows =>
+      if rows == 0 then Future.successful(None)
+      else findById(profileId)
+    }
 
   def listByFamily(familyId: UUID): Future[Seq[Profile]] =
     db.run(Profiles.filter(_.familyId === familyId).result)
@@ -66,7 +84,7 @@ class ProfileRepository @Inject()(
     db.run(
       Profiles.filter(_.id === id)
         .map(p => (p.passwordHash, p.updatedAt))
-        .update((newHash, Instant.now()))
+        .update((Some(newHash), Instant.now()))
     ).map(_ => ())
 
   def delete(id: UUID): Future[Boolean] =

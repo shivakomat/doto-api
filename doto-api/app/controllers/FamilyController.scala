@@ -36,10 +36,18 @@ class FamilyController @Inject()(
       case None => Future.successful(notFound("Invite code not found"))
       case Some(family) =>
         profileRepo.listByFamily(family.id).map { members =>
+          val unclaimed = members
+            .filter(p => p.role == "child" && !p.isAuthAccount)
+            .map(p => Json.obj(
+              "id"          -> p.id.toString.asJson,
+              "displayName" -> p.displayName.asJson,
+              "color"       -> p.color.asJson
+            ))
           Ok(Json.obj(
-            "familyName"  -> family.name.asJson,
-            "memberCount" -> members.size.asJson,
-            "inviteCode"  -> family.inviteCode.asJson
+            "familyName"        -> family.name.asJson,
+            "memberCount"       -> members.size.asJson,
+            "inviteCode"        -> family.inviteCode.asJson,
+            "unclaimedChildren" -> unclaimed.asJson
           ).noSpaces).as("application/json")
         }
     }
@@ -184,7 +192,7 @@ class FamilyController @Inject()(
   private def memberView(p: models.Profile): Json =
     Json.obj(
       "id"            -> p.id.toString.asJson,
-      "username"      -> p.username.asJson,
+      "username"      -> (if p.isAuthAccount then p.username.asJson else Json.Null),
       "displayName"   -> p.displayName.asJson,
       "role"          -> p.role.asJson,
       "color"         -> p.color.asJson,
